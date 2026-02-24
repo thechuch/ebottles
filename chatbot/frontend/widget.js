@@ -74,20 +74,32 @@
     }
 
     .eb-widget-button img.eb-widget-icon {
-      width: 36px;
-      height: 36px;
+      width: 60px;
+      height: 52px;
       object-fit: contain;
       flex-shrink: 0;
+      filter: drop-shadow(0 4px 12px rgba(1, 66, 106, 0.3));
+      transition: filter 0.3s ease;
     }
 
     .eb-widget-button--custom-icon {
-      background: var(--eb-navy);
-      box-shadow: 0 8px 32px rgba(1, 66, 106, 0.35);
-      padding: 10px 18px;
+      background: none;
+      box-shadow: none;
+      padding: 0;
+      border-radius: 0;
     }
 
     .eb-widget-button--custom-icon:hover {
-      box-shadow: 0 12px 40px rgba(1, 66, 106, 0.5);
+      box-shadow: none;
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .eb-widget-button--custom-icon:hover img.eb-widget-icon {
+      filter: drop-shadow(0 8px 20px rgba(1, 66, 106, 0.4));
+    }
+
+    .eb-widget-button--custom-icon .eb-widget-button-text {
+      display: none;
     }
 
     .eb-widget-button-text {
@@ -98,6 +110,10 @@
       .eb-widget-button {
         padding: 14px;
         border-radius: 50%;
+      }
+      .eb-widget-button--custom-icon {
+        padding: 0;
+        border-radius: 0;
       }
       .eb-widget-button-text {
         display: none;
