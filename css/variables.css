@@ -11,21 +11,25 @@
  * ============================================================ */
 
 :root {
-  /* --- Cannabis Theme (Dark Navy) --- */
-  --color-cannabis-bg:         #0a1628;
-  --color-cannabis-bg-alt:     #111d33;
-  --color-cannabis-text:       #ffffff;
-  --color-cannabis-text-muted: #8899aa;
-  --color-cannabis-accent:     #00b4d8;
-  --color-cannabis-overlay:    rgba(10, 22, 40, 0.4);
+  /* --- Cannabis Theme (Dark Navy) ---
+   * Brand colors from eBottles widget (Widget dark.svg):
+   * Navy #01426A · Light #E5ECF0 · Teal #75CEDE */
+  --color-cannabis-bg:         #01426A;
+  --color-cannabis-bg-alt:     #013355;
+  --color-cannabis-text:       #E5ECF0;
+  --color-cannabis-text-muted: #a3bfcf;
+  --color-cannabis-accent:     #75CEDE;
+  --color-cannabis-overlay:    rgba(1, 66, 106, 0.4);
 
-  /* --- Wellness Theme (Light Cream) --- */
-  --color-wellness-bg:         #f5f0e8;
-  --color-wellness-bg-alt:     #ebe5d9;
-  --color-wellness-text:       #2c2c2c;
-  --color-wellness-text-muted: #6b6b6b;
-  --color-wellness-accent:     #8b6f47;
-  --color-wellness-overlay:    rgba(245, 240, 232, 0.3);
+  /* --- Wellness Theme (Light) ---
+   * Brand colors from eBottles widget (Widget light.svg):
+   * Light #F2F2F2 · Navy #01426A · Teal #75CEDE */
+  --color-wellness-bg:         #F2F2F2;
+  --color-wellness-bg-alt:     #E5ECF0;
+  --color-wellness-text:       #01426A;
+  --color-wellness-text-muted: #3d6a85;
+  --color-wellness-accent:     #75CEDE;
+  --color-wellness-overlay:    rgba(242, 242, 242, 0.3);
 
   /* --- Shared --- */
   --color-white:  #ffffff;

@@ -7,6 +7,7 @@
   const BACKEND_URL = currentScript?.getAttribute('data-backend-url') || 'http://localhost:8080';
   const CALENDLY_URL = currentScript?.getAttribute('data-calendly-url') || 'https://calendly.com/ebottles';
   const API_KEY = currentScript?.getAttribute('data-api-key') || '';
+  const ICON_SRC = currentScript?.getAttribute('data-icon-src') || null;
 
   // Prevent multiple initializations
   if (document.getElementById(WIDGET_ID)) {
@@ -18,19 +19,19 @@
   // Note: avoid external font loads inside embeds; rely on system font stack.
   const styles = `
     #${WIDGET_ID} {
-      --eb-teal: #0d7377;
-      --eb-teal-dark: #0a5c5f;
-      --eb-teal-light: #e8f4f4;
-      --eb-navy: #1a4f5c;
-      --eb-mint: #7ecec8;
-      --eb-text: #1a1a2e;
-      --eb-text-light: #5a6a72;
+      --eb-teal: #75CEDE;
+      --eb-teal-dark: #5db8ca;
+      --eb-teal-light: #e0f4f7;
+      --eb-navy: #01426A;
+      --eb-mint: #a3dde8;
+      --eb-text: #01426A;
+      --eb-text-light: #3d6a85;
       --eb-bg: #ffffff;
-      --eb-bg-alt: #f5f9f9;
-      --eb-border: #d4e5e5;
+      --eb-bg-alt: #E5ECF0;
+      --eb-border: #c5d8e0;
       --eb-error: #dc2626;
-      --eb-success: #0d7377;
-      --eb-shadow: 0 20px 60px rgba(13, 115, 119, 0.2);
+      --eb-success: #01426A;
+      --eb-shadow: 0 20px 60px rgba(1, 66, 106, 0.2);
       --eb-radius: 12px;
       --eb-radius-sm: 8px;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -52,14 +53,14 @@
       font-size: 14px;
       font-weight: 600;
       font-family: inherit;
-      box-shadow: 0 8px 32px rgba(13, 115, 119, 0.4);
+      box-shadow: 0 8px 32px rgba(1, 66, 106, 0.4);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 999999;
     }
 
     .eb-widget-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(13, 115, 119, 0.5);
+      box-shadow: 0 12px 40px rgba(1, 66, 106, 0.5);
     }
 
     .eb-widget-button:active {
@@ -70,6 +71,23 @@
       width: 22px;
       height: 22px;
       flex-shrink: 0;
+    }
+
+    .eb-widget-button img.eb-widget-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .eb-widget-button--custom-icon {
+      background: var(--eb-navy);
+      box-shadow: 0 8px 32px rgba(1, 66, 106, 0.35);
+      padding: 10px 18px;
+    }
+
+    .eb-widget-button--custom-icon:hover {
+      box-shadow: 0 12px 40px rgba(1, 66, 106, 0.5);
     }
 
     .eb-widget-button-text {
@@ -89,7 +107,7 @@
     .eb-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(26, 79, 92, 0.6);
+      background: rgba(1, 66, 106, 0.6);
       backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
@@ -411,7 +429,7 @@
 
     .eb-btn-primary:hover:not(:disabled) {
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(13, 115, 119, 0.4);
+      box-shadow: 0 6px 20px rgba(1, 66, 106, 0.4);
     }
 
     .eb-btn-primary:disabled {
@@ -609,9 +627,12 @@
 
   // Create floating button
   const button = document.createElement('button');
-  button.className = 'eb-widget-button';
+  button.className = 'eb-widget-button' + (ICON_SRC ? ' eb-widget-button--custom-icon' : '');
   button.setAttribute('aria-label', 'Talk to a packaging specialist');
-  button.innerHTML = `${chatIcon}<span class="eb-widget-button-text">Talk to a Specialist</span>`;
+  const buttonIcon = ICON_SRC
+    ? `<img class="eb-widget-icon" src="${ICON_SRC}" alt="eBottles">`
+    : chatIcon;
+  button.innerHTML = `${buttonIcon}<span class="eb-widget-button-text">Talk to a Specialist</span>`;
   button.addEventListener('click', openModal);
   container.appendChild(button);
 
