@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     
     # OpenAI
     openai_api_key: str = ""
-    openai_model: str = "gpt-4o"
+    openai_model: str = "gpt-5.1"
     openai_timeout_s: float = 30.0
     
     # Google Service Account (JSON string)
