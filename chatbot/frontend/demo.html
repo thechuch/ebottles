@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eBottles - Packaging Experts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --eb-teal: #0d7377;
+      --eb-teal-dark: #0a5c5f;
+      --eb-navy: #1a4f5c;
+      --eb-navy-deep: #15424d;
+      --eb-mint: #7ecec8;
+      --eb-mint-light: #a8e0dc;
+      --eb-white: #ffffff;
+      --eb-text: #1a1a2e;
+      --eb-text-light: #5a6a72;
+      --eb-bg-light: #f5f9f9;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--eb-white);
+      color: var(--eb-text);
+      line-height: 1.6;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: var(--eb-navy-deep);
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .top-bar a {
+      color: var(--eb-white);
+      text-decoration: none;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .top-bar a:hover {
+      opacity: 1;
+    }
+
+    .top-bar-left {
+      display: flex;
+      gap: 24px;
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-bar-right svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(180deg, var(--eb-navy) 0%, var(--eb-teal-dark) 100%);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--eb-white);
+      text-decoration: none;
+      letter-spacing: -1px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .logo-e {
+      color: var(--eb-mint-light);
+      font-style: italic;
+      margin-right: 1px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      color: var(--eb-white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-cta {
+      background: var(--eb-white);
+      color: var(--eb-navy);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      margin-left: 8px;
+    }
+
+    .nav-cta:hover {
+      background: var(--eb-mint-light);
+    }
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: 24px;
+    }
+
+    .nav-icon {
+      color: var(--eb-white);
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    .nav-icon:hover {
+      opacity: 1;
+    }
+
+    .nav-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, var(--eb-teal-dark) 50%, var(--eb-teal) 100%);
+      min-height: 600px;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="80" cy="50" r="40" fill="rgba(126,206,200,0.1)"/></svg>');
+      background-size: cover;
+    }
+
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      color: var(--eb-white);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-title {
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 0.95;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .hero-text {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--eb-white);
+      color: var(--eb-navy);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-cta svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-product {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .hero-jar {
+      width: 200px;
+      height: 240px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 100%);
+      border-radius: 20px 20px 30px 30px;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero-jar-1 {
+      left: 0;
+      top: 50px;
+      transform: rotate(-5deg);
+    }
+
+    .hero-jar-2 {
+      right: 0;
+      top: 0;
+      background: linear-gradient(180deg, #1e6b8a 0%, #0d5a7d 100%);
+      transform: rotate(5deg);
+    }
+
+    .hero-jar-cap {
+      position: absolute;
+      top: -20px;
+      width: 70%;
+      height: 40px;
+      background: linear-gradient(180deg, #e8f4f4 0%, #c5dede 100%);
+      border-radius: 10px;
+    }
+
+    .hero-jar-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--eb-white);
+      text-align: center;
+    }
+
+    /* Explore Section */
+    .explore {
+      background: var(--eb-navy);
+      padding: 60px 24px;
+    }
+
+    .explore-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .explore-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .explore-title {
+      color: var(--eb-white);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .explore-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .explore-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .explore-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .explore-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--eb-mint);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .explore-icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--eb-navy);
+    }
+
+    .explore-content {
+      flex: 1;
+    }
+
+    .explore-label {
+      font-size: 12px;
+      color: var(--eb-mint);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .explore-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--eb-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .explore-name svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    /* Categories */
+    .categories {
+      padding: 80px 24px;
+      background: var(--eb-white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      color: var(--eb-navy);
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--eb-text-light);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .category-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .category-card {
+      background: var(--eb-bg-light);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .category-card:hover {
+      border-color: var(--eb-teal);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(13, 115, 119, 0.15);
+    }
+
+    .category-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--eb-white);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .category-icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--eb-teal);
+    }
+
+    .category-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--eb-text);
+      margin-bottom: 4px;
+    }
+
+    .category-count {
+      font-size: 13px;
+      color: var(--eb-text-light);
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--eb-teal) 0%, var(--eb-navy) 100%);
+      padding: 80px 24px;
+      text-align: center;
+      color: var(--eb-white);
+    }
+
+    .cta-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta-text {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--eb-white);
+      color: var(--eb-navy);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--eb-navy-deep);
+      color: var(--eb-white);
+      padding: 60px 24px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .footer-brand .logo-e {
+      color: var(--eb-mint);
+    }
+
+    .footer-about {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+    }
+
+    .footer-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--eb-mint);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .hero-text {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .hero-image {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 52px;
+      }
+
+      .explore-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .top-bar {
+        display: none;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 40px;
+      }
+      
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a href="#">My Account ↗</a>
+      <a href="#">My Cart ↗</a>
+      <a href="#">Contact Us ↗</a>
+    </div>
+    <div class="top-bar-right">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      <a href="tel:561-203-2779">561-203-2779</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="logo"><span class="logo-e">e</span>Bottles</a>
+      <nav class="nav">
+        <a href="#" class="nav-link">Flower Jars</a>
+        <a href="#" class="nav-link">Concentrates</a>
+        <a href="#" class="nav-link">Pre-roll & Vape</a>
+        <a href="#" class="nav-link">Tinctures</a>
+        <a href="#" class="nav-link">Edibles</a>
+        <a href="#" class="nav-link">Mylar Bags</a>
+        <a href="#" class="nav-link">Closures</a>
+        <a href="#" class="nav-link nav-cta">SHOP ALL</a>
+      </nav>
+      <div class="nav-icons">
+        <a href="#" class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </a>
+        <a href="#" class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        <a href="#" class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">Packaging for Cannabis, Wellness & Nutraceuticals</div>
+        <h1 class="hero-title">Grow<br>Boldly.</h1>
+        <p class="hero-text">
+          Premium packaging solutions for regulated and wellness brands. From stock containers to custom designs, we help you stand out on the shelf and meet compliance needs.
+        </p>
+        <a href="#" class="hero-cta">
+          Shop All Products
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-image">
+        <div class="hero-product">
+          <!-- Stylized jar representations -->
+          <div class="hero-jar hero-jar-1">
+            <div class="hero-jar-cap"></div>
+          </div>
+          <div class="hero-jar hero-jar-2">
+            <div class="hero-jar-cap"></div>
+            <div class="hero-jar-label">eBottles™</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explore Section -->
+  <section class="explore">
+    <div class="explore-inner">
+      <div class="explore-header">
+        <span class="explore-title">Explore</span>
+        <div class="explore-line"></div>
+      </div>
+      <div class="explore-grid">
+        <div class="explore-card">
+          <div class="explore-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <path d="M9 9h6M9 12h6M9 15h4"/>
+            </svg>
+          </div>
+          <div class="explore-content">
+            <div class="explore-label">About Us</div>
+            <div class="explore-name">
+              Packaging Experts
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="explore-card">
+          <div class="explore-icon" style="background: #2a5a6a;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: white;">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+              <text x="13" y="16" font-size="6" fill="white" font-weight="bold">UPD</text>
+            </svg>
+          </div>
+          <div class="explore-content">
+            <div class="explore-label">Shop Now</div>
+            <div class="explore-name">
+              Tariff-Free Packaging
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="explore-card">
+          <div class="explore-icon" style="background: rgba(255,255,255,0.1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: white;">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+          </div>
+          <div class="explore-content">
+            <div class="explore-label">Backed by Data</div>
+            <div class="explore-name">
+              Discover the Tightest Seal
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <div class="section-header">
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-subtitle">Premium packaging for cannabis, supplements, and wellness products</p>
+    </div>
+    <div class="category-grid">
+      <div class="category-card">
+        <div class="category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M8 2v4M16 2v4M7 6h10a4 4 0 014 4v8a4 4 0 01-4 4H7a4 4 0 01-4-4v-8a4 4 0 014-4z"/>
+          </svg>
+        </div>
+        <div class="category-name">Jars & Containers</div>
+        <div class="category-count">1,200+ options</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2a10 10 0 0110 10"/>
+            <path d="M12 2a10 10 0 00-10 10"/>
+            <path d="M12 22a10 10 0 01-10-10"/>
+            <path d="M12 22a10 10 0 0010-10"/>
+          </svg>
+        </div>
+        <div class="category-name">Bottles</div>
+        <div class="category-count">800+ options</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v2M12 2a4 4 0 014 4v12a4 4 0 01-4 4"/>
+            <path d="M12 2a4 4 0 00-4 4v12a4 4 0 004 4"/>
+          </svg>
+        </div>
+        <div class="category-name">Droppers</div>
+        <div class="category-count">600+ options</div>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <path d="M4 12h16"/>
+          </svg>
+        </div>
+        <div class="category-name">Pouches & Mylar</div>
+        <div class="category-count">950+ options</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <h2 class="cta-title">Need Custom Packaging?</h2>
+    <p class="cta-text">Our packaging specialists can help you design and source custom solutions for any volume. Get started today.</p>
+    <a href="#" class="cta-button">
+      Get a Custom Quote
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand"><span class="logo-e">e</span>Bottles</div>
+        <p class="footer-about">
+          Your trusted partner for premium packaging. Serving cannabis, nutraceutical, wellness, and CPG brands nationwide with compliant, quality containers.
+        </p>
+      </div>
+      <div>
+        <h4 class="footer-title">Products</h4>
+        <ul class="footer-links">
+          <li><a href="#">Flower Jars</a></li>
+          <li><a href="#">Concentrate Containers</a></li>
+          <li><a href="#">Child Resistant</a></li>
+          <li><a href="#">Closures & Caps</a></li>
+          <li><a href="#">Droppers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Industries</h4>
+        <ul class="footer-links">
+          <li><a href="#">Cannabis</a></li>
+          <li><a href="#">CBD & Hemp</a></li>
+          <li><a href="#">Supplements</a></li>
+          <li><a href="#">Wellness</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2024 eBottles. All rights reserved. This is a demo page for testing purposes.
+    </div>
+  </footer>
+
+  <!-- eBottles AI Intake Widget -->
+  <script src="widget.js" data-backend-url="http://localhost:8080" data-calendly-url="https://calendly.com/ebottles" data-api-key=""></script>
+</body>
+</html>

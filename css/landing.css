@@ -1,0 +1,589 @@
+/* ============================================================
+ * landing.css — Split-screen landing page
+ *
+ * HOW IT WORKS:
+ * - Two panels sit in a flex row, each starting at 50% width
+ * - Each panel has overflow:hidden and contains a full-viewport-width image
+ * - The overflow clips each panel's image to only show its portion
+ * - On hover, flex-basis shifts (77% / 23%) — the clip boundary moves
+ * - Products in photos are in identical positions, so they appear stationary
+ * - Only the background "zone" (dark vs light) shifts around them
+ *
+ * SHOPIFY: This file becomes assets/section-landing-split.css
+ * ============================================================ */
+
+
+/* ---- Page: full viewport, no scroll ---- */
+.page-landing {
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+
+/* ============================================================
+ * HEADER — Fixed, centered, floats above both panels
+ * ============================================================ */
+.landing-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Clicks pass through to panels below */
+}
+
+.landing-header__logo {
+  text-align: center;
+  pointer-events: auto; /* Logo itself remains clickable */
+}
+
+.landing-header__logo-img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 4px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.landing-header__tagline {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ============================================================
+ * SPLIT SCREEN CONTAINER
+ * ============================================================ */
+.split-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================================
+ * PANELS — Each side of the split
+ *
+ * flex-basis controls width. overflow:hidden clips the image.
+ * Transitions animate the flex-basis change smoothly.
+ * ============================================================ */
+.split-screen__panel {
+  position: relative;
+  flex: 0 0 var(--split-default); /* 50% by default */
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex-basis var(--transition-split);
+  will-change: flex-basis;
+}
+
+
+/* ============================================================
+ * IMAGE WRAPPER — Full viewport width, positioned absolutely
+ *
+ * KEY CONCEPT: The image/placeholder spans 100vw (full viewport),
+ * but the panel (its parent) clips it via overflow:hidden.
+ * This is what makes the "sliding reveal" illusion work.
+ *
+ * - Cannabis panel: image-wrapper left:0 (aligned to viewport left)
+ * - Wellness panel: image-wrapper pulled left by the cannabis panel's
+ *   current width, so it also starts at viewport left edge.
+ *   This offset is managed by JS (see landing.js).
+ * ============================================================ */
+.split-screen__image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;  /* FULL viewport width, NOT panel width */
+  height: 100%;
+  pointer-events: none;
+}
+
+
+/* ============================================================
+ * PLACEHOLDER IMAGES (CSS gradients + bottle shapes)
+ *
+ * These simulate the real product photography.
+ * SWAP: Replace .split-screen__placeholder with a real <img> tag.
+ * The <img> should have: width:100%; height:100%; object-fit:cover;
+ * ============================================================ */
+.split-screen__placeholder {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cannabis: dark navy gradient with blue/teal tones */
+.split-screen__placeholder--cannabis {
+  background: linear-gradient(
+    135deg,
+    #0a1628 0%,
+    #0d1f3c 25%,
+    #132a4a 50%,
+    #0a1628 75%,
+    #0d1f3c 100%
+  );
+}
+
+/* Wellness: warm cream gradient with natural tones */
+.split-screen__placeholder--wellness {
+  background: linear-gradient(
+    135deg,
+    #f5f0e8 0%,
+    #ebe5d9 20%,
+    #e8dece 40%,
+    #f0ead8 60%,
+    #f5f0e8 80%,
+    #ebe5d9 100%
+  );
+}
+
+/* ---- Bottle silhouettes (identical positions in both zones) ---- */
+.placeholder-bottles {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 800px;
+  height: 55%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3%;
+}
+
+.bottle {
+  border-radius: 4px 4px 2px 2px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Cannabis bottles: amber/dark glass look */
+.split-screen__placeholder--cannabis .bottle {
+  background: linear-gradient(180deg, #8b6914 0%, #5c4a0e 40%, #3d2e08 100%);
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.3),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Wellness bottles: amber/brown glass look (visible against cream) */
+.split-screen__placeholder--wellness .bottle {
+  background: linear-gradient(180deg, #a0845c 0%, #7a6340 40%, #5c4a2e 100%);
+  box-shadow:
+    inset 0 0 10px rgba(255, 255, 255, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Bottle sizes — these match across both zones */
+.bottle--tall    { width: 10%; height: 75%; border-radius: 6px 6px 2px 2px; }
+.bottle--jar     { width: 14%; height: 50%; border-radius: 4px; }
+.bottle--dropper { width: 8%;  height: 65%; border-radius: 3px 3px 2px 2px; }
+.bottle--wide    { width: 16%; height: 45%; border-radius: 6px; }
+.bottle--small   { width: 9%;  height: 35%; border-radius: 50% 50% 4px 4px; }
+.bottle--medium  { width: 12%; height: 55%; border-radius: 4px 4px 2px 2px; }
+
+/* Bottle caps */
+.bottle::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 20%;
+  right: 20%;
+  height: 8px;
+  border-radius: 2px 2px 0 0;
+}
+
+.split-screen__placeholder--cannabis .bottle::before {
+  background: linear-gradient(180deg, #888 0%, #666 100%);
+}
+
+.split-screen__placeholder--wellness .bottle::before {
+  background: linear-gradient(180deg, #bbb 0%, #999 100%);
+}
+
+/* Decorative fern/leaf shape for wellness side */
+.split-screen__placeholder--wellness::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 120px;
+  height: 200px;
+  background: radial-gradient(ellipse at center, rgba(76, 120, 60, 0.25) 0%, transparent 70%);
+  border-radius: 0 60% 0 60%;
+  transform: rotate(-30deg);
+}
+
+/* Subtle blue glow for cannabis side */
+.split-screen__placeholder--cannabis::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0, 180, 216, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+
+/* ============================================================
+ * OVERLAY — Gradient for text legibility over images
+ * ============================================================ */
+.split-screen__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+
+.split-screen__overlay--dark {
+  background: linear-gradient(
+    to top,
+    rgba(10, 22, 40, 0.7) 0%,
+    rgba(10, 22, 40, 0.2) 30%,
+    transparent 60%
+  );
+}
+
+.split-screen__overlay--light {
+  background: linear-gradient(
+    to top,
+    rgba(100, 80, 50, 0.35) 0%,
+    rgba(100, 80, 50, 0.1) 30%,
+    transparent 60%
+  );
+}
+
+
+/* ============================================================
+ * LABELS — "Explore" + "Cannabis" / "Wellness" at bottom
+ * ============================================================ */
+.split-screen__label {
+  position: absolute;
+  bottom: 10%;
+  z-index: 10;
+  text-align: left;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+/* Cannabis label: positioned in left half of viewport */
+.split-screen__panel--cannabis .split-screen__label {
+  left: 8%;
+  color: var(--color-cannabis-text);
+}
+
+/* Wellness label: positioned in right portion of viewport */
+.split-screen__panel--wellness .split-screen__label {
+  right: 8%;
+  text-align: right;
+  color: var(--color-wellness-text);
+}
+
+.split-screen__explore {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+.split-screen__category-name {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+
+/* ============================================================
+ * DIVIDER — Thin line between panels
+ * ============================================================ */
+.split-screen__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  z-index: 20;
+  pointer-events: none;
+  transition:
+    left var(--transition-split),
+    opacity var(--transition-fast);
+}
+
+
+/* ============================================================
+ * HOVER STATES
+ *
+ * JS adds these classes to #splitScreen on mouseenter/leave.
+ * The flex-basis transition animates the panel width change.
+ * ============================================================ */
+
+/* -- Hovering Cannabis (left expands) -- */
+.split-screen.is-hover-cannabis .split-screen__panel--cannabis {
+  flex-basis: var(--split-expanded);  /* 77% */
+}
+.split-screen.is-hover-cannabis .split-screen__panel--wellness {
+  flex-basis: var(--split-collapsed); /* 23% */
+}
+.split-screen.is-hover-cannabis .split-screen__divider {
+  left: var(--split-expanded);
+}
+
+/* Expanded panel: emphasize label */
+.split-screen.is-hover-cannabis .split-screen__panel--cannabis .split-screen__label {
+  transform: scale(1.05);
+}
+
+/* Collapsed panel: fade label */
+.split-screen.is-hover-cannabis .split-screen__panel--wellness .split-screen__label {
+  opacity: 0.4;
+  transform: scale(0.9);
+}
+
+/* -- Hovering Wellness (right expands) -- */
+.split-screen.is-hover-wellness .split-screen__panel--wellness {
+  flex-basis: var(--split-expanded);
+}
+.split-screen.is-hover-wellness .split-screen__panel--cannabis {
+  flex-basis: var(--split-collapsed);
+}
+.split-screen.is-hover-wellness .split-screen__divider {
+  left: var(--split-collapsed);
+}
+
+/* Expanded panel: emphasize label */
+.split-screen.is-hover-wellness .split-screen__panel--wellness .split-screen__label {
+  transform: scale(1.05);
+}
+
+.split-screen.is-hover-wellness .split-screen__panel--cannabis .split-screen__label {
+  opacity: 0.4;
+  transform: scale(0.9);
+}
+
+
+/* ============================================================
+ * CLICK STATES — Full takeover, then navigate
+ *
+ * JS adds these after a panel is clicked.
+ * Uses a more dramatic easing curve (--transition-click).
+ * ============================================================ */
+
+/* Override transition for click animation */
+.split-screen.is-clicked-cannabis .split-screen__panel,
+.split-screen.is-clicked-wellness .split-screen__panel {
+  transition:
+    flex-basis var(--transition-click),
+    opacity var(--transition-click);
+}
+
+/* -- Clicked Cannabis -- */
+.split-screen.is-clicked-cannabis .split-screen__panel--cannabis {
+  flex-basis: 100%;
+}
+.split-screen.is-clicked-cannabis .split-screen__panel--wellness {
+  flex-basis: 0%;
+  opacity: 0;
+}
+
+/* -- Clicked Wellness -- */
+.split-screen.is-clicked-wellness .split-screen__panel--wellness {
+  flex-basis: 100%;
+}
+.split-screen.is-clicked-wellness .split-screen__panel--cannabis {
+  flex-basis: 0%;
+  opacity: 0;
+}
+
+/* Hide divider on click */
+.split-screen.is-clicked-cannabis .split-screen__divider,
+.split-screen.is-clicked-wellness .split-screen__divider {
+  opacity: 0;
+}
+
+/* Hide non-active label on click */
+.split-screen.is-clicked-cannabis .split-screen__panel--wellness .split-screen__label,
+.split-screen.is-clicked-wellness .split-screen__panel--cannabis .split-screen__label {
+  opacity: 0;
+}
+
+
+/* ============================================================
+ * MOBILE — Vertical stack (panels top/bottom instead of left/right)
+ *
+ * Hover is disabled on touch devices.
+ * Tap = click behavior only.
+ * ============================================================ */
+@media (max-width: 768px) {
+  .split-screen {
+    flex-direction: column;
+  }
+
+  .split-screen__panel {
+    flex: 0 0 50%; /* Each panel takes half the height */
+  }
+
+  /* On mobile, images fill width normally — no offset trick needed */
+  .split-screen__image-wrapper {
+    width: 100%;
+  }
+
+  /* Divider becomes horizontal */
+  .split-screen__divider {
+    top: 50%;
+    left: 0 !important;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    bottom: auto;
+  }
+
+  /* Adjust label sizes */
+  .split-screen__category-name {
+    font-size: 1.8rem;
+  }
+
+  .landing-header {
+    height: 60px;
+  }
+
+  .landing-header__logo-img {
+    width: 150px;
+  }
+
+  .landing-header__tagline {
+    font-size: 0.55rem;
+  }
+
+  /* Mobile click states: expand vertically */
+  .split-screen.is-clicked-cannabis .split-screen__panel--cannabis,
+  .split-screen.is-clicked-wellness .split-screen__panel--wellness {
+    flex-basis: 100%;
+  }
+
+  .split-screen.is-clicked-cannabis .split-screen__panel--wellness,
+  .split-screen.is-clicked-wellness .split-screen__panel--cannabis {
+    flex-basis: 0%;
+    opacity: 0;
+  }
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+  .split-screen__panel {
+    cursor: default;
+  }
+}
+
+
+/* ============================================================
+ * HOME PAGE — Minimal styles for cannabis.html / wellness.html
+ * ============================================================ */
+.page-home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.page-home.theme-cannabis {
+  background-color: var(--color-cannabis-bg);
+  color: var(--color-cannabis-text);
+}
+
+.page-home.theme-wellness {
+  background-color: var(--color-wellness-bg);
+  color: var(--color-wellness-text);
+}
+
+.home-logo {
+  width: 220px;
+  margin-bottom: 2rem;
+}
+
+.home-heading {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  margin-bottom: 1rem;
+}
+
+.home-subtext {
+  font-size: 1rem;
+  opacity: 0.7;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.home-back {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.home-back:hover {
+  opacity: 1;
+}
+
+.theme-cannabis .home-back:hover {
+  background: var(--color-cannabis-accent);
+  border-color: var(--color-cannabis-accent);
+}
+
+.theme-wellness .home-back:hover {
+  background: var(--color-wellness-accent);
+  border-color: var(--color-wellness-accent);
+  color: var(--color-white);
+}
+
+/* Entrance animation for home pages */
+.page-home {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

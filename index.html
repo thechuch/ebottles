@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eBottles — Child Resistant Packaging Experts</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body class="page-landing">
+
+  <!-- ============================================================
+       HEADER — Logo + Tagline (centered, floats above both panels)
+       SHOPIFY: sections/header.liquid
+       ============================================================ -->
+  <header class="landing-header" role="banner">
+    <div class="landing-header__logo">
+      <!-- SHOPIFY: Replace with {{ settings.logo | image_url | image_tag }} -->
+      <svg class="landing-header__logo-img" viewBox="0 0 260 50" xmlns="http://www.w3.org/2000/svg">
+        <text x="10" y="38" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" fill="#ffffff">
+          <tspan fill="#00b4d8">e</tspan>Bottles
+        </text>
+        <text x="10" y="38" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" fill="#ffffff" stroke="#ffffff" stroke-width="0">
+          <tspan fill="#00b4d8">e</tspan>Bottles
+        </text>
+      </svg>
+      <span class="landing-header__tagline">CHILD RESISTANT PACKAGING EXPERTS</span>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       SPLIT SCREEN — Two panels, flex layout
+       SHOPIFY: sections/landing-split.liquid
+       Each panel = a Shopify block with settings for:
+         - image (image_picker)
+         - target URL (url)
+         - label text (text)
+       ============================================================ -->
+  <main class="split-screen" id="splitScreen" role="main">
+
+    <!-- ---- Cannabis Panel (Left) ---- -->
+    <section
+      class="split-screen__panel split-screen__panel--cannabis"
+      id="panelCannabis"
+      data-side="cannabis"
+      data-target="cannabis.html"
+      aria-label="Explore cannabis packaging">
+
+      <!-- Full-viewport-width image container, clipped by panel overflow -->
+      <!-- SHOPIFY: Replace inner content with {{ block.settings.image | image_url: width: 1920 | image_tag }} -->
+      <div class="split-screen__image-wrapper">
+        <div class="split-screen__placeholder split-screen__placeholder--cannabis">
+          <!-- CSS gradient placeholder — swap for real photo -->
+          <div class="placeholder-bottles">
+            <div class="bottle bottle--tall"></div>
+            <div class="bottle bottle--jar"></div>
+            <div class="bottle bottle--dropper"></div>
+            <div class="bottle bottle--wide"></div>
+            <div class="bottle bottle--small"></div>
+            <div class="bottle bottle--medium"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradient overlay for text contrast -->
+      <div class="split-screen__overlay split-screen__overlay--dark"></div>
+
+      <!-- Bottom label -->
+      <div class="split-screen__label">
+        <span class="split-screen__explore">Explore</span>
+        <h2 class="split-screen__category-name">Cannabis</h2>
+      </div>
+    </section>
+
+    <!-- ---- Wellness Panel (Right) ---- -->
+    <section
+      class="split-screen__panel split-screen__panel--wellness"
+      id="panelWellness"
+      data-side="wellness"
+      data-target="wellness.html"
+      aria-label="Explore wellness packaging">
+
+      <div class="split-screen__image-wrapper">
+        <div class="split-screen__placeholder split-screen__placeholder--wellness">
+          <div class="placeholder-bottles">
+            <div class="bottle bottle--tall"></div>
+            <div class="bottle bottle--jar"></div>
+            <div class="bottle bottle--dropper"></div>
+            <div class="bottle bottle--wide"></div>
+            <div class="bottle bottle--small"></div>
+            <div class="bottle bottle--medium"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-screen__overlay split-screen__overlay--light"></div>
+
+      <div class="split-screen__label">
+        <span class="split-screen__explore">Explore</span>
+        <h2 class="split-screen__category-name">Wellness</h2>
+      </div>
+    </section>
+
+    <!-- Center divider line (decorative) -->
+    <div class="split-screen__divider" aria-hidden="true"></div>
+
+  </main>
+
+  <script src="js/landing.js"></script>
+</body>
+</html>
