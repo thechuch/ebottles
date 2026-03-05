@@ -29,7 +29,7 @@
  * ============================================================ */
 .landing-header {
   position: fixed;
-  top: 0;
+  top: 32px; /* Clear the nav pull-tab */
   left: 0;
   right: 0;
   z-index: 100;
@@ -46,7 +46,7 @@
 }
 
 .landing-header__logo-img {
-  width: 200px;
+  width: 240px;
   height: auto;
   margin-bottom: 4px;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
