@@ -1,0 +1,338 @@
+/* ============================================================
+ * nav.css — Navigation pull-tab, hamburger, and overlay
+ *
+ * Desktop (>768px): Liquid-glass pull-tab centered at top edge
+ * Mobile (≤768px): Three-bar hamburger in header, top-right
+ * Both trigger the same frosted-glass slide-down overlay.
+ *
+ * SHOPIFY: This becomes assets/section-nav.css
+ * ============================================================ */
+
+/* === PULL-TAB (desktop only) === */
+.nav-tab {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 201;
+  width: 160px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+/* Subtle inner border glow via pseudo-element (clip-path clips box-shadow) */
+.nav-tab::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Chevron arrow */
+.nav-tab__chevron {
+  width: 10px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  margin-top: 2px;
+}
+
+.nav-tab__chevron svg {
+  width: 10px;
+  height: 6px;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Hover: teal glow */
+.nav-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-tab:hover::before {
+  border-color: rgba(117, 206, 222, 0.3);
+}
+
+.nav-tab:hover .nav-tab__chevron {
+  transform: translateY(2px);
+}
+
+.nav-tab:hover .nav-tab__chevron svg {
+  stroke: rgba(255, 255, 255, 0.9);
+}
+
+/* Open state */
+.nav-tab.is-open {
+  background: rgba(1, 66, 106, 0.3);
+}
+
+.nav-tab.is-open .nav-tab__chevron {
+  transform: rotate(180deg);
+}
+
+/* Backdrop-filter fallback */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-tab {
+    background: rgba(1, 66, 106, 0.7);
+  }
+}
+
+
+/* === HAMBURGER (mobile only) === */
+.nav-hamburger {
+  display: none;  /* Hidden on desktop, shown via media query */
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 201;
+  padding: 0;
+}
+
+.nav-hamburger__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-white);
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+/* Open state: morph to X */
+.nav-hamburger.is-open .nav-hamburger__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-hamburger.is-open .nav-hamburger__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-hamburger.is-open .nav-hamburger__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* === NAV OVERLAY (shared) === */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(1, 66, 106, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+  padding: calc(var(--header-height, 80px) + 2rem) 2rem 3rem;
+  pointer-events: none;
+}
+
+.nav-overlay.is-open {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Backdrop-filter fallback */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-overlay {
+    background: rgba(1, 66, 106, 0.97);
+  }
+}
+
+
+/* === NAV LIST === */
+.nav-overlay__list {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-overlay__item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Staggered entrance */
+.nav-overlay.is-open .nav-overlay__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav-overlay.is-open .nav-overlay__item:nth-child(1) { transition-delay: 0.10s; }
+.nav-overlay.is-open .nav-overlay__item:nth-child(2) { transition-delay: 0.15s; }
+.nav-overlay.is-open .nav-overlay__item:nth-child(3) { transition-delay: 0.20s; }
+.nav-overlay.is-open .nav-overlay__item:nth-child(4) { transition-delay: 0.25s; }
+.nav-overlay.is-open .nav-overlay__item:nth-child(5) { transition-delay: 0.30s; }
+
+.nav-overlay__link {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  text-decoration: none;
+  padding: clamp(0.75rem, 1.5vh, 1.25rem) 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-overlay__link:hover {
+  color: var(--color-cannabis-accent, #75CEDE);
+}
+
+
+/* === SECONDARY LINKS === */
+.nav-overlay__secondary {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  gap: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease 0.35s;
+}
+
+.nav-overlay.is-open .nav-overlay__secondary {
+  opacity: 1;
+}
+
+.nav-overlay__secondary a {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.nav-overlay__secondary a:hover {
+  color: var(--color-white);
+}
+
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  /* Show hamburger, hide pull-tab */
+  .nav-tab {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+  /* Full-screen overlay on mobile */
+  .nav-overlay {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: calc(60px + 2rem) 1.5rem 2rem;
+  }
+
+  .nav-overlay__link {
+    font-size: 1.5rem;
+  }
+
+  .nav-overlay__secondary {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+
+/* === THEME OVERRIDES (sub-pages) === */
+
+/* Wellness (light bg): hamburger bars should be navy */
+.theme-wellness .nav-hamburger__bar {
+  background: var(--color-wellness-text, #01426A);
+  filter: none;
+}
+
+/* Wellness: pull-tab gets slightly more visible bg */
+.theme-wellness .nav-tab {
+  background: rgba(1, 66, 106, 0.08);
+}
+
+.theme-wellness .nav-tab::before {
+  border-color: rgba(1, 66, 106, 0.15);
+}
+
+.theme-wellness .nav-tab:hover {
+  background: rgba(1, 66, 106, 0.12);
+}
+
+.theme-wellness .nav-tab__chevron svg {
+  stroke: rgba(1, 66, 106, 0.6);
+}
+
+.theme-wellness .nav-tab:hover .nav-tab__chevron svg {
+  stroke: rgba(1, 66, 106, 0.9);
+}
+
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  .nav-overlay {
+    transition: none;
+  }
+
+  .nav-overlay__item {
+    transition: none;
+  }
+
+  .nav-overlay.is-open .nav-overlay__item {
+    transition-delay: 0s !important;
+  }
+
+  .nav-tab__chevron {
+    transition: none;
+  }
+
+  .nav-hamburger__bar {
+    transition: none;
+  }
+
+  .nav-overlay__secondary {
+    transition: none;
+  }
+}

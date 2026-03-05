@@ -63,7 +63,7 @@
 
   // ---- Hover Handlers (desktop only) ----
   function onPanelEnter(side) {
-    if (isClicked || isMobile || !hasHover) return;
+    if (isClicked || isMobile || !hasHover || window.__ebNavOpen) return;
 
     splitScreen.classList.remove('is-hover-cannabis', 'is-hover-wellness');
     splitScreen.classList.add('is-hover-' + side);
@@ -71,7 +71,7 @@
   }
 
   function onPanelLeave() {
-    if (isClicked || isMobile || !hasHover) return;
+    if (isClicked || isMobile || !hasHover || window.__ebNavOpen) return;
 
     splitScreen.classList.remove('is-hover-cannabis', 'is-hover-wellness');
     startTracking();

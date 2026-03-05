@@ -13,8 +13,19 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/nav.css">
 </head>
 <body class="page-landing">
+
+  <!-- ============================================================
+       NAV PULL-TAB — Liquid glass trapezoid (desktop only)
+       SHOPIFY: Part of sections/header.liquid
+       ============================================================ -->
+  <button class="nav-tab" id="navTab" aria-label="Open navigation" aria-expanded="false" aria-controls="navOverlay">
+    <span class="nav-tab__chevron">
+      <svg viewBox="0 0 12 8"><polyline points="1 1 6 6 11 1"/></svg>
+    </span>
+  </button>
 
   <!-- ============================================================
        HEADER — Logo + Tagline (centered, floats above both panels)
@@ -33,7 +44,34 @@
       </svg>
       <span class="landing-header__tagline">CHILD RESISTANT PACKAGING EXPERTS</span>
     </div>
+
+    <!-- Hamburger (mobile only) -->
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="navOverlay">
+      <span class="nav-hamburger__bar"></span>
+      <span class="nav-hamburger__bar"></span>
+      <span class="nav-hamburger__bar"></span>
+    </button>
   </header>
+
+  <!-- ============================================================
+       NAV OVERLAY — Frosted-glass slide-down panel
+       SHOPIFY: snippets/nav-overlay.liquid
+       Nav items from {{ linklists['main-menu'].links }}
+       ============================================================ -->
+  <nav class="nav-overlay" id="navOverlay" aria-hidden="true" role="navigation">
+    <ul class="nav-overlay__list">
+      <li class="nav-overlay__item"><a href="#about" class="nav-overlay__link">About</a></li>
+      <li class="nav-overlay__item"><a href="#products" class="nav-overlay__link">Products</a></li>
+      <li class="nav-overlay__item"><a href="cannabis.html" class="nav-overlay__link">Cannabis</a></li>
+      <li class="nav-overlay__item"><a href="wellness.html" class="nav-overlay__link">Wellness</a></li>
+      <li class="nav-overlay__item"><a href="#contact" class="nav-overlay__link">Contact</a></li>
+    </ul>
+    <div class="nav-overlay__secondary">
+      <a href="#faq">FAQ</a>
+      <a href="#shipping">Shipping</a>
+      <a href="#terms">Terms</a>
+    </div>
+  </nav>
 
   <!-- ============================================================
        SPLIT SCREEN — Two panels, flex layout
@@ -114,5 +152,6 @@
   </main>
 
   <script src="js/landing.js"></script>
+  <script src="js/nav.js"></script>
 </body>
 </html>

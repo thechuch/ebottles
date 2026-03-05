@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/nav.css">
 </head>
 <!--
   SHOPIFY: This page maps to templates/collection.wellness.json
@@ -18,19 +19,50 @@
 -->
 <body class="page-home theme-wellness">
 
-  <svg class="home-logo" viewBox="0 0 260 50" xmlns="http://www.w3.org/2000/svg">
-    <text x="30" y="38" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" fill="#01426A">
-      <tspan fill="#75CEDE">e</tspan>Bottles
-    </text>
-  </svg>
+  <!-- Nav pull-tab (desktop) -->
+  <button class="nav-tab" id="navTab" aria-label="Open navigation" aria-expanded="false" aria-controls="navOverlay">
+    <span class="nav-tab__chevron">
+      <svg viewBox="0 0 12 8"><polyline points="1 1 6 6 11 1"/></svg>
+    </span>
+  </button>
 
-  <h1 class="home-heading">Wellness Packaging</h1>
+  <header class="landing-header" role="banner" style="pointer-events: none; position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: center; padding-top: 1.5rem;">
+    <div class="landing-header__logo" style="pointer-events: auto;">
+      <svg class="home-logo" viewBox="0 0 260 50" xmlns="http://www.w3.org/2000/svg" style="margin: 0;">
+        <text x="30" y="38" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" fill="#01426A">
+          <tspan fill="#75CEDE">e</tspan>Bottles
+        </text>
+      </svg>
+    </div>
+    <!-- Hamburger (mobile only) -->
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="navOverlay">
+      <span class="nav-hamburger__bar"></span>
+      <span class="nav-hamburger__bar"></span>
+      <span class="nav-hamburger__bar"></span>
+    </button>
+  </header>
+
+  <!-- Nav overlay -->
+  <nav class="nav-overlay" id="navOverlay" aria-hidden="true" role="navigation">
+    <ul class="nav-overlay__list">
+      <li class="nav-overlay__item"><a href="index.html" class="nav-overlay__link">Home</a></li>
+      <li class="nav-overlay__item"><a href="#about" class="nav-overlay__link">About</a></li>
+      <li class="nav-overlay__item"><a href="#products" class="nav-overlay__link">Products</a></li>
+      <li class="nav-overlay__item"><a href="cannabis.html" class="nav-overlay__link">Cannabis</a></li>
+      <li class="nav-overlay__item"><a href="#contact" class="nav-overlay__link">Contact</a></li>
+    </ul>
+    <div class="nav-overlay__secondary">
+      <a href="#faq">FAQ</a>
+      <a href="#shipping">Shipping</a>
+      <a href="#terms">Terms</a>
+    </div>
+  </nav>
+
+  <h1 class="home-heading" style="margin-top: 100px;">Wellness Packaging</h1>
   <p class="home-subtext">
     Premium packaging for nutraceuticals, supplements, tinctures, and wellness products.
     This is where the full wellness home page would load with hero slider, category grid, and product features.
   </p>
-
-  <a href="index.html" class="home-back">Back to Landing Page</a>
 
   <!-- eBottles AI Lead Intake Widget — see chatbot/ for backend setup -->
   <script
@@ -40,5 +72,6 @@
     data-api-key=""
     data-icon-src="images/widget-icon-dark.svg">
   </script>
+  <script src="js/nav.js"></script>
 </body>
 </html>
