@@ -20,10 +20,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
   border: none;
   cursor: pointer;
   padding: 0;
@@ -35,8 +35,8 @@
   content: '';
   position: absolute;
   inset: 1px;
-  clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 0;
   pointer-events: none;
   transition: border-color 0.3s ease;
@@ -65,11 +65,11 @@
 
 /* Hover: teal glow */
 .nav-tab:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .nav-tab:hover::before {
-  border-color: rgba(117, 206, 222, 0.3);
+  border-color: rgba(117, 206, 222, 0.5);
 }
 
 .nav-tab:hover .nav-tab__chevron {
@@ -92,7 +92,7 @@
 /* Backdrop-filter fallback */
 @supports not (backdrop-filter: blur(1px)) {
   .nav-tab {
-    background: rgba(1, 66, 106, 0.7);
+    background: rgba(1, 66, 106, 0.5);
   }
 }
 
